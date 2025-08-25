@@ -44,3 +44,10 @@ export 'src/select/select_option.dart';
 
 // Export app bar components
 export 'src/app_bar/minimal_app_bar.dart';
+
+// Export grid components
+export 'src/grid/minimal_grid.dart';
+export 'src/grid/grid_breakpoints.dart';
+
+// Export container components
+export 'src/container/index.dart';

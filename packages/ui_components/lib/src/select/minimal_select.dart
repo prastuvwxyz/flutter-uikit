@@ -579,7 +579,9 @@ class _MinimalSelectState<T> extends State<MinimalSelect<T>> {
               )
             : Icon(Icons.search, size: 20, color: colors.onSurfaceVariant),
       ),
-      style: tokens.typographyTokens.bodyMd.copyWith(color: colors.onSurface),
+      style: tokens.typographyTokens.bodyMedium.copyWith(
+        color: colors.onSurface,
+      ),
       onChanged: (value) {
         setState(() {
           _isSearching = true;
