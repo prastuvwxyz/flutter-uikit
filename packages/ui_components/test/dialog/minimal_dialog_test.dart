@@ -1,0 +1,268 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:ui_components/ui_components.dart';
+
+void main() {
+  group('MinimalDialog', () {
+    testWidgets('Escape key closes dismissible dialog', (
+      WidgetTester tester,
+    ) async {
+      bool dismissed = false;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) {
+              return Scaffold(
+                body: MinimalDialog(
+                  title: 'Test Dialog',
+                  content: const Text('This is a test dialog'),
+                  dismissible: true,
+                  onDismiss: () {
+                    dismissed = true;
+                  },
+                ),
+              );
+            },
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(find.text('Test Dialog'), findsOneWidget);
+
+      // Simulate pressing the Escape key
+      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+      await tester.pumpAndSettle();
+
+      expect(dismissed, true);
+    });
+
+    testWidgets('Focus traps within dialog when open', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) {
+              return Scaffold(
+                body: MinimalDialog(
+                  title: 'Test Dialog',
+                  content: const Text('Dialog Content'),
+                  actions: [
+                    TextButton(onPressed: () {}, child: const Text('Cancel')),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Confirm'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Initial focus should be in the dialog
+      expect(find.text('Test Dialog'), findsOneWidget);
+
+      // Tab navigation should move between the buttons but stay within dialog
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pumpAndSettle();
+      expect(
+        tester
+            .widget<TextButton>(find.widgetWithText(TextButton, 'Cancel'))
+            .enabled,
+        true,
+      );
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pumpAndSettle();
+      expect(
+        tester
+            .widget<ElevatedButton>(
+              find.widgetWithText(ElevatedButton, 'Confirm'),
+            )
+            .enabled,
+        true,
+      );
+
+      // Tab again should loop back to the beginning of the dialog
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pumpAndSettle();
+      expect(
+        tester
+            .widget<TextButton>(find.widgetWithText(TextButton, 'Cancel'))
+            .enabled,
+        true,
+      );
+    });
+
+    testWidgets('Dialog can be closed via onDismiss callback', (
+      WidgetTester tester,
+    ) async {
+      bool dismissed = false;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) {
+              return Scaffold(
+                body: Center(
+                  child: MinimalDialog(
+                    title: 'Test Dialog',
+                    content: const Text('Dialog Content'),
+                    dismissible: true,
+                    onDismiss: () {
+                      dismissed = true;
+                    },
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      );
+
+      // Verify dialog is shown
+      expect(find.text('Test Dialog'), findsOneWidget);
+
+      // Simulate pressing the Escape key
+      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+      await tester.pump(const Duration(milliseconds: 300));
+
+      // Verify onDismiss callback was triggered
+      expect(dismissed, true);
+    });
+
+    testWidgets('Action buttons receive proper focus order', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) {
+              return Scaffold(
+                body: MinimalDialog(
+                  title: 'Test Dialog',
+                  content: const Text('Dialog Content'),
+                  actions: [
+                    TextButton(onPressed: () {}, child: const Text('Cancel')),
+                    TextButton(onPressed: () {}, child: const Text('Reset')),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Confirm'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(find.text('Test Dialog'), findsOneWidget);
+
+      // Check the order of the action buttons
+      final cancelButton = find.widgetWithText(TextButton, 'Cancel');
+      final resetButton = find.widgetWithText(TextButton, 'Reset');
+      final confirmButton = find.widgetWithText(ElevatedButton, 'Confirm');
+
+      expect(
+        tester.getTopLeft(cancelButton).dx < tester.getTopLeft(resetButton).dx,
+        true,
+      );
+      expect(
+        tester.getTopLeft(resetButton).dx < tester.getTopLeft(confirmButton).dx,
+        true,
+      );
+    });
+
+    testWidgets('Small dialog has correct width', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: MinimalDialog(
+              title: 'Small Dialog',
+              content: Text('Content'),
+              size: DialogSize.sm,
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Find the SizedBox that controls dialog width
+      final finder = find
+          .descendant(of: find.byType(Dialog), matching: find.byType(SizedBox))
+          .first;
+
+      final sizedBox = tester.widget<SizedBox>(finder);
+      expect(sizedBox.width, 400.0);
+    });
+
+    testWidgets('Fullscreen dialog has correct width', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: MinimalDialog(
+              title: 'Fullscreen Dialog',
+              content: Text('Content'),
+              size: DialogSize.fullscreen,
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Find the SizedBox that controls dialog width
+      final finder = find
+          .descendant(of: find.byType(Dialog), matching: find.byType(SizedBox))
+          .first;
+
+      final sizedBox = tester.widget<SizedBox>(finder);
+      expect(sizedBox.width, double.infinity);
+    });
+
+    testWidgets('Dialog with scrollable content shows scrollbar', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: MinimalDialog(
+              title: 'Scrollable Dialog',
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: List.generate(
+                  10,
+                  (index) => Container(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text('Content line $index'),
+                  ),
+                ),
+              ),
+              scrollable: true,
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Check that the dialog has a scrollable content area
+      expect(find.byType(SingleChildScrollView), findsOneWidget);
+
+      // Check that at least one of the content lines is visible
+      expect(find.text('Content line 0'), findsOneWidget);
+    });
+  });
+}
