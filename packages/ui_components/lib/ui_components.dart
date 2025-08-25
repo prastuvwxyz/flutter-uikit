@@ -33,3 +33,7 @@ export 'src/dialog/dialog_types.dart';
 // Export checkbox components
 export 'src/checkbox/minimal_checkbox.dart';
 export 'src/checkbox/checkbox_types.dart';
+
+// Export select components
+export 'src/select/minimal_select.dart';
+export 'src/select/select_option.dart';
