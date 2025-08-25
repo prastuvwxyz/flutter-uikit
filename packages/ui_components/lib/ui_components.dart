@@ -28,6 +28,10 @@ export 'src/list/minimal_list.dart';
 
 // Export dialog components
 export 'src/dialog/minimal_dialog.dart';
+
+// Export drawer components
+export 'src/drawer/minimal_drawer.dart';
+export 'src/drawer/minimal_drawer_controller.dart';
 export 'src/dialog/dialog_types.dart';
 
 // Export checkbox components
