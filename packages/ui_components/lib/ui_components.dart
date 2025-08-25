@@ -22,3 +22,6 @@ export 'src/tabs/tab_variant.dart';
 // Export avatar components
 export 'src/avatar/minimal_avatar.dart';
 export 'src/avatar/avatar_types.dart';
+
+// Export list components
+export 'src/list/minimal_list.dart';
