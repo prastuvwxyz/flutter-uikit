@@ -37,3 +37,6 @@ export 'src/checkbox/checkbox_types.dart';
 // Export select components
 export 'src/select/minimal_select.dart';
 export 'src/select/select_option.dart';
+
+// Export app bar components
+export 'src/app_bar/minimal_app_bar.dart';
