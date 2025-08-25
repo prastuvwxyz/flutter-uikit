@@ -29,3 +29,7 @@ export 'src/list/minimal_list.dart';
 // Export dialog components
 export 'src/dialog/minimal_dialog.dart';
 export 'src/dialog/dialog_types.dart';
+
+// Export checkbox components
+export 'src/checkbox/minimal_checkbox.dart';
+export 'src/checkbox/checkbox_types.dart';
