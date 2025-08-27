@@ -1,0 +1,1 @@
+enum BottomNavigationType { fixed, shifting }
