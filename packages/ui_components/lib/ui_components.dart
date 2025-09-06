@@ -82,3 +82,6 @@ export 'src/search_bar/index.dart';
 
 // Export autocomplete component
 export 'src/autocomplete/index.dart';
+
+// Export rich text editor
+export 'src/rich_text_editor/index.dart';
