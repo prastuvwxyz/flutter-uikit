@@ -76,3 +76,6 @@ export 'src/time_picker/index.dart';
 
 // Export file upload component
 export 'src/file_upload/index.dart';
+
+// Export search bar component
+export 'src/search_bar/index.dart';
