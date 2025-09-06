@@ -118,3 +118,6 @@ export 'src/accordion/index.dart';
 
 // Export tree view
 export 'src/tree_view/index.dart';
+
+// Export rating component
+export 'src/rating/index.dart';
