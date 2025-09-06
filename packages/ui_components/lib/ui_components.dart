@@ -154,3 +154,6 @@ export 'src/notification_banner/minimal_notification_banner.dart';
 
 // Export empty state
 export 'src/empty_state/minimal_empty_state.dart';
+
+// Export table components
+export 'src/minimal_table/minimal_table.dart';
