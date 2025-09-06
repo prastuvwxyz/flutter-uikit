@@ -136,3 +136,6 @@ export 'src/modal/minimal_modal.dart';
 
 // Export speed dial
 export 'src/speed_dial/index.dart';
+
+// Export timeline component
+export 'src/timeline/index.dart';
