@@ -130,3 +130,6 @@ export 'src/pagination/index.dart';
 
 // Export modal component
 export 'src/modal/minimal_modal.dart';
+
+// Export speed dial
+export 'src/speed_dial/index.dart';
