@@ -170,3 +170,7 @@ export 'src/dashboard_widget/minimal_dashboard_widget.dart';
 
 // Export form components
 export 'src/form/minimal_form.dart';
+
+// Kanban board organism
+export 'src/kanban/kanban_models.dart';
+export 'src/kanban/minimal_kanban_board.dart';
