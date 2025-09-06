@@ -79,3 +79,6 @@ export 'src/file_upload/index.dart';
 
 // Export search bar component
 export 'src/search_bar/index.dart';
+
+// Export autocomplete component
+export 'src/autocomplete/index.dart';
