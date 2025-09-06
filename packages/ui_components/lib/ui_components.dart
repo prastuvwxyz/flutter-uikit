@@ -151,6 +151,9 @@ export 'src/timeline/index.dart';
 // Export loading overlay
 export 'src/loading_overlay/index.dart';
 
+// Export skeleton component
+export 'src/skeleton/minimal_skeleton.dart';
+
 // Export notification banner
 export 'src/notification_banner/minimal_notification_banner.dart';
 
