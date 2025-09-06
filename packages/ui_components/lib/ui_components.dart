@@ -60,6 +60,9 @@ export 'src/tooltip/tooltip_enums.dart';
 // Export text components
 export 'src/minimal_text.dart';
 
+// Export textarea autosize component
+export 'src/minimal_textarea_autosize.dart';
+
 // Export slider components
 export 'src/slider/minimal_slider.dart';
 

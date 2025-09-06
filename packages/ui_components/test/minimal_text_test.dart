@@ -7,10 +7,7 @@ void main() {
   testWidgets('renders with required properties', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
-        home: MinimalText(
-          'Hello World',
-          variant: TextVariant.h1,
-        ),
+        home: MinimalText('Hello World', variant: TextVariant.h1),
       ),
     );
 
@@ -20,12 +17,7 @@ void main() {
 
   testWidgets('applies custom color correctly', (tester) async {
     await tester.pumpWidget(
-      const MaterialApp(
-        home: MinimalText(
-          'Colored Text',
-          color: Colors.red,
-        ),
-      ),
+      const MaterialApp(home: MinimalText('Colored Text', color: Colors.red)),
     );
 
     final textWidget = tester.widget<Text>(find.text('Colored Text'));
@@ -56,10 +48,7 @@ void main() {
   testWidgets('provides semantics for headings', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
-        home: MinimalText(
-          'Main Heading',
-          variant: TextVariant.h1,
-        ),
+        home: MinimalText('Main Heading', variant: TextVariant.h1),
       ),
     );
 

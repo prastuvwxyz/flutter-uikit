@@ -99,7 +99,7 @@ class MinimalText extends StatelessWidget {
 
   TextStyle _getVariantStyle(BuildContext context, TextVariant variant) {
     final textTheme = Theme.of(context).textTheme;
-  TextStyle result = textTheme.bodyMedium ?? const TextStyle(fontSize: 14);
+    TextStyle result = textTheme.bodyMedium ?? const TextStyle(fontSize: 14);
 
     switch (variant) {
       case TextVariant.displayLarge:
@@ -162,7 +162,7 @@ class MinimalText extends StatelessWidget {
         break;
     }
 
-  return result;
+    return result;
   }
 
   TextStyle _composeStyle(BuildContext context) {

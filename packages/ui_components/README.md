@@ -1,3 +1,22 @@
+# ui_components — Minimal components library
+
+## MinimalTextareaAutosize
+
+Basic usage:
+
+```dart
+import 'package:ui_components/ui_components.dart';
+
+MinimalTextareaAutosize(
+  placeholder: 'Enter your message',
+  maxLength: 500,
+  showCharacterCount: true,
+  minHeight: 48,
+  maxHeight: 200,
+)
+```
+
+This component is exported from `package:ui_components/ui_components.dart`.
 # UI Components Package
 
 A set of reusable UI components for the Flutter UI Kit that follow Material Design 3 principles.
