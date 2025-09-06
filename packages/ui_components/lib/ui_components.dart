@@ -73,6 +73,9 @@ export 'src/slider/minimal_slider.dart';
 // Export divider component
 export 'src/divider/minimal_divider.dart';
 
+// Export paper component
+export 'src/paper/minimal_paper.dart';
+
 // Export spinner component
 export 'src/spinner/index.dart';
 
