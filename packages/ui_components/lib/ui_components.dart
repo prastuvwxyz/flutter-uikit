@@ -113,3 +113,6 @@ export 'src/icons/minimal_icons.dart';
 
 // Export accordion
 export 'src/accordion/index.dart';
+
+// Export tree view
+export 'src/tree_view/index.dart';
