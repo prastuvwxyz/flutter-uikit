@@ -1,3 +1,4 @@
 library ui_templates;
 
 export 'src/dashboard/_index.dart';
+export 'src/crud/_index.dart';
