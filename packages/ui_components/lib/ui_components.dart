@@ -29,6 +29,7 @@ export 'src/avatar/avatar_types.dart';
 
 // Export list components
 export 'src/list/minimal_list.dart';
+export 'src/minimal_list_tile.dart';
 
 // Export dialog components
 export 'src/dialog/minimal_dialog.dart';
