@@ -2,6 +2,7 @@ library ui_components;
 
 // Export button components
 export 'src/button/minimal_button.dart';
+export 'src/button/minimal_button_group.dart';
 
 // Export text field components
 export 'src/text_field/minimal_text_field.dart';
