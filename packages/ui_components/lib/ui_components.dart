@@ -51,3 +51,7 @@ export 'src/grid/grid_breakpoints.dart';
 
 // Export container components
 export 'src/container/index.dart';
+
+// Export tooltip components
+export 'src/tooltip/minimal_tooltip.dart';
+export 'src/tooltip/tooltip_enums.dart';
