@@ -121,3 +121,6 @@ export 'src/tree_view/index.dart';
 
 // Export rating component
 export 'src/rating/index.dart';
+
+// Export color picker
+export 'src/color_picker/index.dart';

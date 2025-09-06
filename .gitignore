@@ -41,6 +41,11 @@ migrate_working_dir/
 *.lock
 !/pubspec.lock
 
+# Ignore per-package build outputs and test cache
+# matches packages/*/build and any build/test_cache folders produced by tests
+packages/**/build/
+**/build/test_cache/
+
 # Web related
 lib/generated_plugin_registrant.dart
 
