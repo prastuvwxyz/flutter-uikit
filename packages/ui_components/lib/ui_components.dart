@@ -55,3 +55,6 @@ export 'src/container/index.dart';
 // Export tooltip components
 export 'src/tooltip/minimal_tooltip.dart';
 export 'src/tooltip/tooltip_enums.dart';
+
+// Export slider components
+export 'src/slider/minimal_slider.dart';
