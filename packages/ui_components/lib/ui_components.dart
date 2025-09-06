@@ -162,6 +162,8 @@ export 'src/empty_state/minimal_empty_state.dart';
 
 // Export table components
 export 'src/minimal_table/minimal_table.dart';
+// Export data table organism
+export 'src/data_table/index.dart';
 
 // Export dashboard widget
 export 'src/dashboard_widget/minimal_dashboard_widget.dart';
