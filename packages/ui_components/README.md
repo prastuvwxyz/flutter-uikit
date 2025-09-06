@@ -96,3 +96,18 @@ MinimalButton(
 - Supports RTL layouts
 - Semantic role: button
 - Keyboard support: Enter/Space
+
+### MinimalText
+
+`MinimalText` is a semantic typography widget exposing `TextVariant` aliases like `TextVariant.h1`, `TextVariant.body1`, `TextVariant.caption`, etc.
+
+Example:
+
+```dart
+import 'package:ui_components/ui_components.dart';
+
+MinimalText('Main Heading', variant: TextVariant.h1)
+MinimalText('Body copy', variant: TextVariant.body1, color: Colors.blue)
+```
+
+It provides theming integration, accessibility semantics and common style overrides.
