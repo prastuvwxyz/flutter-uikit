@@ -16,6 +16,7 @@ export 'src/alert/alert_types.dart';
 
 // Export tabs components
 export 'src/tabs/minimal_tabs.dart';
+export 'src/stepper/index.dart';
 export 'src/tabs/tab_item.dart';
 export 'src/tabs/tab_variant.dart';
 
