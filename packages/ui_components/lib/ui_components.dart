@@ -58,3 +58,6 @@ export 'src/tooltip/tooltip_enums.dart';
 
 // Export slider components
 export 'src/slider/minimal_slider.dart';
+
+// Export divider component
+export 'src/divider/minimal_divider.dart';
