@@ -142,3 +142,6 @@ export 'src/timeline/index.dart';
 
 // Export loading overlay
 export 'src/loading_overlay/index.dart';
+
+// Export notification banner
+export 'src/notification_banner/minimal_notification_banner.dart';
