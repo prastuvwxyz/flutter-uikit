@@ -72,6 +72,9 @@ export 'src/menu/menu_style.dart';
 // Export date picker components
 export 'src/date_picker/index.dart';
 
+// Export datetime picker components
+export 'src/datetime_picker/index.dart';
+
 // Export time picker components
 export 'src/time_picker/index.dart';
 
