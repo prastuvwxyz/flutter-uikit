@@ -73,3 +73,6 @@ export 'src/date_picker/index.dart';
 
 // Export time picker components
 export 'src/time_picker/index.dart';
+
+// Export file upload component
+export 'src/file_upload/index.dart';
