@@ -125,3 +125,5 @@ export 'src/rating/index.dart';
 
 // Export color picker
 export 'src/color_picker/index.dart';
+// Export pagination component
+export 'src/pagination/index.dart';
