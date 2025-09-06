@@ -110,3 +110,6 @@ export 'src/image/minimal_image.dart';
 // Export icons
 export 'src/icons/minimal_icon.dart';
 export 'src/icons/minimal_icons.dart';
+
+// Export accordion
+export 'src/accordion/index.dart';
