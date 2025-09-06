@@ -19,6 +19,7 @@ export 'src/tabs/minimal_tabs.dart';
 export 'src/stepper/index.dart';
 export 'src/tabs/tab_item.dart';
 export 'src/tabs/tab_variant.dart';
+export 'src/fab/minimal_fab.dart';
 
 // Export avatar components
 export 'src/avatar/minimal_avatar.dart';
