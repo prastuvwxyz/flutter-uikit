@@ -61,3 +61,9 @@ export 'src/slider/minimal_slider.dart';
 
 // Export divider component
 export 'src/divider/minimal_divider.dart';
+
+// Export menu components
+export 'src/menu/minimal_menu.dart';
+export 'src/menu/menu_controller.dart';
+export 'src/menu/menu_item.dart';
+export 'src/menu/menu_style.dart';
