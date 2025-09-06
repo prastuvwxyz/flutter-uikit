@@ -167,3 +167,6 @@ export 'src/data_table/index.dart';
 
 // Export dashboard widget
 export 'src/dashboard_widget/minimal_dashboard_widget.dart';
+
+// Export form components
+export 'src/form/minimal_form.dart';
