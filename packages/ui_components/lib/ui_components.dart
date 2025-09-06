@@ -91,3 +91,6 @@ export 'src/autocomplete/index.dart';
 export 'src/rich_text_editor/index.dart';
 // Export stack component
 export 'src/stack/index.dart';
+
+// Export link component
+export 'src/link/minimal_link.dart';
