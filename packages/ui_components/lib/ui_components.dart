@@ -127,3 +127,6 @@ export 'src/rating/index.dart';
 export 'src/color_picker/index.dart';
 // Export pagination component
 export 'src/pagination/index.dart';
+
+// Export modal component
+export 'src/modal/minimal_modal.dart';
