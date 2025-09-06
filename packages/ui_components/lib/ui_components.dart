@@ -94,3 +94,9 @@ export 'src/stack/index.dart';
 
 // Export link component
 export 'src/link/minimal_link.dart';
+
+// Export status label component
+export 'src/status_label/minimal_status_label.dart';
+
+// Export image component
+export 'src/image/minimal_image.dart';
