@@ -67,3 +67,6 @@ export 'src/menu/minimal_menu.dart';
 export 'src/menu/menu_controller.dart';
 export 'src/menu/menu_item.dart';
 export 'src/menu/menu_style.dart';
+
+// Export date picker components
+export 'src/date_picker/index.dart';
