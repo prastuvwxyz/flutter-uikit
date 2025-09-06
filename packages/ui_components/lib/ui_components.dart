@@ -106,3 +106,7 @@ export 'src/status_label/minimal_status_label.dart';
 
 // Export image component
 export 'src/image/minimal_image.dart';
+
+// Export icons
+export 'src/icons/minimal_icon.dart';
+export 'src/icons/minimal_icons.dart';
