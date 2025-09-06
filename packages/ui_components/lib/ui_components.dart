@@ -139,3 +139,6 @@ export 'src/speed_dial/index.dart';
 
 // Export timeline component
 export 'src/timeline/index.dart';
+
+// Export loading overlay
+export 'src/loading_overlay/index.dart';
