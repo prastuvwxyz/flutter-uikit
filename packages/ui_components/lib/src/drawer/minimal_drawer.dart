@@ -73,8 +73,9 @@ class MinimalDrawerState extends State<MinimalDrawer>
   void dispose() {
     controller.removeStatusListener(_handleStatusChange);
     controller.dispose();
-    _focusScopeNode?.dispose();
+    // detach focus attachment before disposing the scope
     _focusAttachment?.detach();
+    _focusScopeNode?.dispose();
     super.dispose();
   }
 
@@ -127,15 +128,17 @@ class MinimalDrawerState extends State<MinimalDrawer>
       onKey: _handleKeyPress,
       child: Stack(
         children: [
-          // Scrim/backdrop
-          if (controller.value > 0)
-            GestureDetector(
-              onTap: close,
-              child: FadeTransition(
-                opacity: _animation,
-                child: Container(color: Colors.black54),
-              ),
+          // Scrim/backdrop - animate opacity with the controller
+          GestureDetector(
+            onTap: close,
+            child: AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) => _animation.value > 0
+                  ? Opacity(opacity: _animation.value, child: child)
+                  : const SizedBox.shrink(),
+              child: Container(color: Colors.black54),
             ),
+          ),
           // Drawer
           AnimatedBuilder(
             animation: _animation,
@@ -145,7 +148,7 @@ class MinimalDrawerState extends State<MinimalDrawer>
               return Transform.translate(
                 offset: Offset(
                   isRtl
-                      ? (1.0 - slideValue) * effectiveWidth
+                      ? (slideValue - 1.0) * effectiveWidth
                       : (slideValue - 1.0) * effectiveWidth,
                   0.0,
                 ),

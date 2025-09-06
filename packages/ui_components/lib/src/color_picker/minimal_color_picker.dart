@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 /// Minimal color picker implementing a subset of the UIK-132 spec.
 ///
@@ -139,7 +140,26 @@ class _MinimalColorPickerState extends State<MinimalColorPicker> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(child: Center(child: _buildColorWheelPlaceholder())),
+            // Make the top area flexible and responsive to available height
+            Flexible(
+              fit: FlexFit.loose,
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final maxPlaceholderSize = constraints.maxHeight * 0.6;
+                  // compute placeholder size clamped between 60 and maxPlaceholderSize
+                  final placeholderSize = maxPlaceholderSize.isFinite
+                      ? max(60.0, min(maxPlaceholderSize, constraints.maxWidth))
+                      : min(120.0, constraints.maxWidth);
+                  return Center(
+                    child: SizedBox(
+                      width: placeholderSize,
+                      height: placeholderSize,
+                      child: _buildColorWheelPlaceholder(),
+                    ),
+                  );
+                },
+              ),
+            ),
             const SizedBox(height: 8),
             if (widget.showCustomInput) _buildHexInputRow(),
             if (widget.showRecentColors) const SizedBox(height: 8),
@@ -154,41 +174,85 @@ class _MinimalColorPickerState extends State<MinimalColorPicker> {
 
   // Placeholder for a real color wheel; shows a simple hue slider for now.
   Widget _buildColorWheelPlaceholder() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 120,
-          height: 120,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: SweepGradient(
-              colors: [
-                Colors.red,
-                Colors.yellow,
-                Colors.green,
-                Colors.cyan,
-                Colors.blue,
-                Colors.purple,
-                Colors.red,
-              ],
-            ),
-            boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4),
-            ],
+    // Make the placeholder responsive to the available size provided by
+    // the parent SizedBox/LayoutBuilder. This prevents hard-coded sizes
+    // from overflowing in very constrained test harnesses.
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final availW = constraints.maxWidth.isFinite
+            ? constraints.maxWidth
+            : 200.0;
+        final availH = constraints.maxHeight.isFinite
+            ? constraints.maxHeight
+            : 200.0;
+        final maxDim = min(availW, availH);
+
+        // Choose a slider height that's small in constrained spaces.
+        final double sliderPreferredHeight = 36.0;
+        final double sliderMinHeight = 12.0;
+        final bool showSlider =
+            availH > 56; // need some vertical space for slider
+        final double sliderHeight = showSlider
+            ? min(sliderPreferredHeight, max(12.0, availH * 0.25))
+            : sliderMinHeight;
+
+        final double spacing = showSlider ? max(4.0, maxDim * 0.06) : 4.0;
+
+        // Compute circle size so total fits: circle + spacing + sliderHeight <= availH
+        final double circleSize = max(
+          16.0,
+          min(
+            120.0,
+            maxDim - (showSlider ? (sliderHeight + spacing) : spacing),
           ),
-        ),
-        const SizedBox(height: 12),
-        Slider(
-          value: HSVColor.fromColor(_color).hue,
-          min: 0,
-          max: 360,
-          onChanged: (v) {
-            final hsv = HSVColor.fromColor(_color);
-            _applyColor(hsv.withHue(v).toColor());
-          },
-        ),
-      ],
+        );
+
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: circleSize,
+              height: circleSize,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: SweepGradient(
+                  colors: [
+                    Colors.red,
+                    Colors.yellow,
+                    Colors.green,
+                    Colors.cyan,
+                    Colors.blue,
+                    Colors.purple,
+                    Colors.red,
+                  ],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 4,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: spacing),
+            if (showSlider)
+              SizedBox(
+                width: circleSize,
+                height: sliderHeight,
+                child: Slider(
+                  value: HSVColor.fromColor(_color).hue,
+                  min: 0,
+                  max: 360,
+                  onChanged: (v) {
+                    final hsv = HSVColor.fromColor(_color);
+                    _applyColor(hsv.withHue(v).toColor());
+                  },
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 

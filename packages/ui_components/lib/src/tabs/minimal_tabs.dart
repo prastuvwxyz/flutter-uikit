@@ -58,6 +58,9 @@ class _MinimalTabsState extends State<MinimalTabs>
     with SingleTickerProviderStateMixin {
   late final TabController _controller;
   late final ScrollController _scrollController;
+  // keep per-tab keys so we can locate their RenderBox later
+  late List<GlobalKey> _tabKeys;
+
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -71,8 +74,15 @@ class _MinimalTabsState extends State<MinimalTabs>
     _controller.addListener(_handleTabChange);
     _scrollController = ScrollController();
 
+    // create persistent keys for each tab so we can measure them later
+    _tabKeys = List.generate(widget.tabs.length, (_) => GlobalKey());
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToSelectedTab();
+    });
+    // ensure keyboard listener has focus to receive arrow keys
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _focusNode.requestFocus();
     });
   }
 
@@ -88,6 +98,8 @@ class _MinimalTabsState extends State<MinimalTabs>
         initialIndex: widget.selectedIndex,
       );
       _controller.addListener(_handleTabChange);
+      // recreate keys to match new tabs
+      _tabKeys = List.generate(widget.tabs.length, (_) => GlobalKey());
     } else if (oldWidget.selectedIndex != widget.selectedIndex) {
       _controller.animateTo(widget.selectedIndex);
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -133,12 +145,14 @@ class _MinimalTabsState extends State<MinimalTabs>
       return null;
     }
 
-    // Find the render object for the tab at the given index
-    final tabKey = GlobalKey();
-    final tabContext = tabKey.currentContext;
-    if (tabContext == null) return null;
+    // Find the render object for the tab at the given index using stored key
+    if (index >= 0 && index < _tabKeys.length) {
+      final tabContext = _tabKeys[index].currentContext;
+      if (tabContext == null) return null;
+      return tabContext.findRenderObject() as RenderBox?;
+    }
 
-    return tabContext.findRenderObject() as RenderBox?;
+    return null;
   }
 
   @override
@@ -179,6 +193,22 @@ class _MinimalTabsState extends State<MinimalTabs>
       isScrollable: widget.scrollable,
       labelPadding: padding,
       padding: EdgeInsets.zero,
+      // Intercept taps to prevent selecting disabled tabs. If a disabled
+      // tab is tapped, revert the controller back to the prior index so
+      // external state (via onTabChanged/setState) is not updated.
+      onTap: (index) {
+        if (index < 0 || index >= widget.tabs.length) return;
+        if (widget.tabs[index].disabled) {
+          // revert controller to previous selection
+          if (_controller.index != _controller.previousIndex) {
+            _controller.animateTo(_controller.previousIndex);
+          }
+          return;
+        }
+        // update controller and notify
+        _controller.animateTo(index);
+        widget.onTabChanged?.call(index);
+      },
       tabAlignment: _getTabAlignment(),
       dividerColor: Colors.transparent,
       // Apply variant-specific styling
@@ -204,11 +234,13 @@ class _MinimalTabsState extends State<MinimalTabs>
   }
 
   TabAlignment _getTabAlignment() {
-    if (widget.fullWidth) {
-      return TabAlignment.fill;
-    } else if (widget.centered && !widget.scrollable) {
-      return TabAlignment.center;
-    }
+    // TabAlignment.start is only valid for scrollable tab bars in Flutter.
+    // Choose a safe alignment based on configuration.
+    if (widget.fullWidth) return TabAlignment.fill;
+    if (widget.centered && !widget.scrollable) return TabAlignment.center;
+    // For non-scrollable default to fill so tabs distribute evenly.
+    if (!widget.scrollable) return TabAlignment.fill;
+    // For scrollable, start is acceptable.
     return TabAlignment.start;
   }
 
@@ -239,12 +271,17 @@ class _MinimalTabsState extends State<MinimalTabs>
       }
 
       // Wrap in a Semantics widget for accessibility
+      // Attach the persistent key to the Tab so we can find its RenderBox
+      final key = index < _tabKeys.length ? _tabKeys[index] : null;
       return Semantics(
         selected: index == _controller.index,
         enabled: !tab.disabled,
         button: true,
         label: 'Tab ${index + 1}: ${tab.label}',
-        child: Tab(child: tabContent),
+        child: Tab(
+          key: key,
+          child: IgnorePointer(ignoring: tab.disabled, child: tabContent),
+        ),
       );
     });
   }
@@ -386,6 +423,8 @@ class _MinimalTabsState extends State<MinimalTabs>
 
     if (nextIndex != currentIndex) {
       _controller.animateTo(nextIndex);
+      // notify listener so external state updates in tests
+      widget.onTabChanged?.call(nextIndex);
     }
   }
 
@@ -405,6 +444,7 @@ class _MinimalTabsState extends State<MinimalTabs>
 
     if (index != _controller.index) {
       _controller.animateTo(index);
+      widget.onTabChanged?.call(index);
     }
   }
 }
