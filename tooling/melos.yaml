@@ -1,0 +1,37 @@
+name: rental_monorepo
+packages:
+  - apps/**
+  - packages/**
+
+command:
+  bootstrap:
+    runPubGetInParallel: true
+
+scripts:
+  analyze:
+    description: "Static analysis with fatal infos/warnings."
+    run: |
+      melos exec -c 1 -- \
+        dart analyze --fatal-infos --fatal-warnings
+    select-package:
+      dir-exists:
+        - lib
+
+  test:
+    description: "Run unit/widget tests."
+    run: melos exec --fail-fast -- flutter test
+    select-package:
+      dir-exists:
+        - test
+
+  format:
+    run: melos exec -- dart format --fix .
+
+  analyze:since:
+    run: melos run analyze --since main
+  test:since:
+    run: melos run test --since main
+
+  build:web:
+    run: melos exec --scope="rental_fleet_portal" -- \
+      flutter build web --release

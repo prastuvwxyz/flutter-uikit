@@ -1,0 +1,38 @@
+name: core
+description: Core services package including auth, http, storage, analytics, and RBAC for rental fleet portal
+version: 0.1.0
+publish_to: 'none'
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.19.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # HTTP and networking
+  dio: ^5.4.0
+  
+  # Authentication
+  oauth2: ^2.0.2
+  
+  # Storage
+  shared_preferences: ^2.2.2
+  
+  # State management
+  provider: ^6.1.2
+  
+  # Analytics and error reporting
+  sentry_flutter: ^7.18.0
+  
+  # Utilities
+  utils: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  test: ^1.26.2
+
+resolution: workspace
