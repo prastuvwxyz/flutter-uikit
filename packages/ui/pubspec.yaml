@@ -1,0 +1,23 @@
+name: ui
+description: A comprehensive Flutter UI component library
+version: 1.0.0
+
+environment:
+  sdk: '^3.9.2'
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.0.0
+  tokens:
+    path: ../tokens
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+
+resolution: workspace

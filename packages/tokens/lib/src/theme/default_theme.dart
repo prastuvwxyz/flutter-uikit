@@ -67,41 +67,41 @@ class DefaultTheme {
     shadow: Colors.black,
   );
 
-  /// Default dark color scheme using primary blue
+  /// Default dark color scheme using primary blue with better contrast levels
   static ColorScheme get _darkColorScheme => ColorScheme.dark(
-    primary: ColorPalettes.primary.shade200,
-    onPrimary: ColorPalettes.primary.shade900,
-    primaryContainer: ColorPalettes.primary.shade700,
-    onPrimaryContainer: ColorPalettes.primary.shade100,
+    primary: ColorPalettes.primary.shade300,
+    onPrimary: ColorPalettes.primary.shade800,
+    primaryContainer: ColorPalettes.primary.shade800,
+    onPrimaryContainer: ColorPalettes.primary.shade200,
 
-    secondary: ColorPalettes.secondary.shade200,
-    onSecondary: ColorPalettes.secondary.shade900,
-    secondaryContainer: ColorPalettes.secondary.shade700,
-    onSecondaryContainer: ColorPalettes.secondary.shade100,
+    secondary: ColorPalettes.secondary.shade300,
+    onSecondary: ColorPalettes.secondary.shade800,
+    secondaryContainer: ColorPalettes.secondary.shade800,
+    onSecondaryContainer: ColorPalettes.secondary.shade200,
 
-    tertiary: ColorPalettes.tertiary.shade200,
-    onTertiary: ColorPalettes.tertiary.shade900,
-    tertiaryContainer: ColorPalettes.tertiary.shade700,
-    onTertiaryContainer: ColorPalettes.tertiary.shade100,
+    tertiary: ColorPalettes.tertiary.shade300,
+    onTertiary: ColorPalettes.tertiary.shade800,
+    tertiaryContainer: ColorPalettes.tertiary.shade800,
+    onTertiaryContainer: ColorPalettes.tertiary.shade200,
 
     error: ColorPalettes.error.light,
     onError: ColorPalettes.error.dark,
     errorContainer: ColorPalettes.error.main,
     onErrorContainer: ColorPalettes.error.light,
 
-    surface: ColorPalettes.neutral.shade900,
-    onSurface: ColorPalettes.neutral.shade50,
-    surfaceContainerHighest: ColorPalettes.neutral.shade800,
-    onSurfaceVariant: ColorPalettes.neutral.shade400,
+    surface: const Color(0xFF121212),
+    onSurface: ColorPalettes.neutral.shade100,
+    surfaceContainerHighest: const Color(0xFF1E1E1E),
+    onSurfaceVariant: ColorPalettes.neutral.shade300,
 
-    outline: ColorPalettes.neutral.shade700,
-    outlineVariant: ColorPalettes.neutral.shade800,
+    outline: ColorPalettes.neutral.shade600,
+    outlineVariant: ColorPalettes.neutral.shade700,
 
-    inverseSurface: ColorPalettes.neutral.shade50,
-    onInverseSurface: ColorPalettes.neutral.shade900,
+    inverseSurface: ColorPalettes.neutral.shade100,
+    onInverseSurface: ColorPalettes.neutral.shade800,
     inversePrimary: ColorPalettes.primary.shade500,
 
-    surfaceTint: ColorPalettes.primary.shade200,
+    surfaceTint: ColorPalettes.primary.shade300,
     scrim: Colors.black,
     shadow: Colors.black,
   );

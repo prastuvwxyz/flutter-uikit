@@ -6,11 +6,13 @@ environment:
   sdk: ">=3.5.0 <4.0.0"
 
 workspace:
-  - apps/rental_fleet_portal
+  - apps/operation_fleet
   - packages/design_system
+  - packages/tokens
+  - packages/ui
   - packages/core
   - packages/utils
 
 dev_dependencies:
-  melos: ^6.0.0
-  very_good_analysis: ^6.0.0
+  melos: ^7.1.1
+  very_good_analysis: ^9.0.0

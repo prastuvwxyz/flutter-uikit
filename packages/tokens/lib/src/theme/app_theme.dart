@@ -13,17 +13,17 @@ import 'theme_registry.dart';
 /// ```dart
 /// // Use default theme
 /// MaterialApp(
-///   theme: AppTheme.light,
-///   darkTheme: AppTheme.dark,
+///   theme: Theme.light,
+///   darkTheme: Theme.dark,
 /// )
 ///
 /// // Use specific color theme
 /// MaterialApp(
-///   theme: AppTheme.lightTheme(ThemeColor.indigo),
-///   darkTheme: AppTheme.darkTheme(ThemeColor.indigo),
+///   theme: Theme.lightTheme(ThemeColor.indigo),
+///   darkTheme: Theme.darkTheme(ThemeColor.indigo),
 /// )
 /// ```
-class AppTheme {
+class Theme {
   /// Default light theme using primary blue color
   static ThemeData get light => DefaultTheme.light;
 
@@ -33,21 +33,21 @@ class AppTheme {
   /// Get light theme with specified color
   ///
   /// ```dart
-  /// theme: AppTheme.lightTheme(ThemeColor.red)
+  /// theme: Theme.lightTheme(ThemeColor.red)
   /// ```
   static ThemeData lightTheme(ThemeColor color) => ThemeRegistry.lightTheme(color);
 
   /// Get dark theme with specified color
   ///
   /// ```dart
-  /// darkTheme: AppTheme.darkTheme(ThemeColor.red)
+  /// darkTheme: Theme.darkTheme(ThemeColor.red)
   /// ```
   static ThemeData darkTheme(ThemeColor color) => ThemeRegistry.darkTheme(color);
 
   /// Get theme pair (light and dark) for specified color
   ///
   /// ```dart
-  /// final themes = AppTheme.themeFor(ThemeColor.green);
+  /// final themes = Theme.themeFor(ThemeColor.green);
   /// theme: themes.light,
   /// darkTheme: themes.dark,
   /// ```
@@ -59,7 +59,7 @@ class AppTheme {
   /// Create custom theme with specified primary color palette
   ///
   /// ```dart
-  /// theme: AppTheme.custom(
+  /// theme: Theme.custom(
   ///   primaryPalette: ColorPalettes.indigo,
   ///   brightness: Brightness.light,
   /// )
