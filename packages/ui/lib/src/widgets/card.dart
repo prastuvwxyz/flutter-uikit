@@ -88,19 +88,18 @@ class Card extends StatelessWidget {
     VoidCallback? onTap,
     VoidCallback? onLongPress,
     bool selected = false,
-  }) =>
-      Card(
-        key: key,
-        child: child,
-        backgroundColor: backgroundColor,
-        elevation: elevation,
-        borderRadius: borderRadius,
-        padding: padding,
-        margin: margin,
-        onTap: onTap,
-        onLongPress: onLongPress,
-        selected: selected,
-      );
+  }) => Card(
+    key: key,
+    child: child,
+    backgroundColor: backgroundColor,
+    elevation: elevation,
+    borderRadius: borderRadius,
+    padding: padding,
+    margin: margin,
+    onTap: onTap,
+    onLongPress: onLongPress,
+    selected: selected,
+  );
 
   /// Creates an elevated card with shadow
   factory Card.elevated({
@@ -118,24 +117,23 @@ class Card extends StatelessWidget {
     VoidCallback? onTap,
     VoidCallback? onLongPress,
     bool selected = false,
-  }) =>
-      Card(
-        key: key,
-        header: header,
-        body: body,
-        footer: footer,
-        child: child,
-        backgroundColor: backgroundColor,
-        showDividers: showDividers,
-        elevation: elevation,
-        borderRadius: borderRadius,
-        padding: padding,
-        margin: margin,
-        onTap: onTap,
-        onLongPress: onLongPress,
-        selected: selected,
-        outlined: false,
-      );
+  }) => Card(
+    key: key,
+    header: header,
+    body: body,
+    footer: footer,
+    child: child,
+    backgroundColor: backgroundColor,
+    showDividers: showDividers,
+    elevation: elevation,
+    borderRadius: borderRadius,
+    padding: padding,
+    margin: margin,
+    onTap: onTap,
+    onLongPress: onLongPress,
+    selected: selected,
+    outlined: false,
+  );
 
   /// Creates an outlined card with border
   factory Card.outlined({
@@ -152,24 +150,23 @@ class Card extends StatelessWidget {
     VoidCallback? onTap,
     VoidCallback? onLongPress,
     bool selected = false,
-  }) =>
-      Card(
-        key: key,
-        header: header,
-        body: body,
-        footer: footer,
-        child: child,
-        backgroundColor: backgroundColor,
-        showDividers: showDividers,
-        elevation: 0,
-        borderRadius: borderRadius,
-        padding: padding,
-        margin: margin,
-        onTap: onTap,
-        onLongPress: onLongPress,
-        selected: selected,
-        outlined: true,
-      );
+  }) => Card(
+    key: key,
+    header: header,
+    body: body,
+    footer: footer,
+    child: child,
+    backgroundColor: backgroundColor,
+    showDividers: showDividers,
+    elevation: 0,
+    borderRadius: borderRadius,
+    padding: padding,
+    margin: margin,
+    onTap: onTap,
+    onLongPress: onLongPress,
+    selected: selected,
+    outlined: true,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -179,10 +176,12 @@ class Card extends StatelessWidget {
     final radius = tokens.Radius.of(context);
 
     // Determine effective border radius
-    final effectiveBorderRadius = borderRadius ?? BorderRadius.circular(radius.lg);
+    final effectiveBorderRadius =
+        borderRadius ?? BorderRadius.circular(radius.lg);
 
     // Determine background color
-    final effectiveBackgroundColor = backgroundColor ??
+    final effectiveBackgroundColor =
+        backgroundColor ??
         (selected ? colorScheme.primaryContainer : colorScheme.surface);
 
     // Determine border for outlined cards
@@ -211,7 +210,14 @@ class Card extends StatelessWidget {
           // Header section
           if (header != null) ...[
             Padding(
-              padding: padding ?? EdgeInsets.fromLTRB(spacing.lg, spacing.lg, spacing.lg, spacing.md),
+              padding:
+                  padding ??
+                  EdgeInsets.fromLTRB(
+                    spacing.lg,
+                    spacing.lg,
+                    spacing.lg,
+                    spacing.md,
+                  ),
               child: header!,
             ),
             if (showDividers && body != null)
@@ -227,12 +233,14 @@ class Card extends StatelessWidget {
           // Body section
           if (body != null) ...[
             Padding(
-              padding: padding ?? EdgeInsets.fromLTRB(
-                spacing.lg,
-                header != null ? spacing.md : spacing.lg,
-                spacing.lg,
-                footer != null ? spacing.md : spacing.lg,
-              ),
+              padding:
+                  padding ??
+                  EdgeInsets.fromLTRB(
+                    spacing.lg,
+                    header != null ? spacing.md : spacing.lg,
+                    spacing.lg,
+                    footer != null ? spacing.md : spacing.lg,
+                  ),
               child: body!,
             ),
             if (showDividers && footer != null)
@@ -248,7 +256,14 @@ class Card extends StatelessWidget {
           // Footer section
           if (footer != null)
             Padding(
-              padding: padding ?? EdgeInsets.fromLTRB(spacing.lg, spacing.md, spacing.lg, spacing.lg),
+              padding:
+                  padding ??
+                  EdgeInsets.fromLTRB(
+                    spacing.lg,
+                    spacing.md,
+                    spacing.lg,
+                    spacing.lg,
+                  ),
               child: footer!,
             ),
         ],
@@ -271,14 +286,14 @@ class Card extends StatelessWidget {
                 ),
               ]
             : elevation == 0
-                ? [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.04),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ]
-                : null,
+            ? [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ]
+            : null,
       ),
       child: Material(
         type: MaterialType.transparency,
@@ -326,10 +341,7 @@ class CardHeader extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: Row(
         children: [
-          if (leading != null) ...[
-            leading!,
-            SizedBox(width: spacing.sm),
-          ],
+          if (leading != null) ...[leading!, SizedBox(width: spacing.sm)],
 
           Expanded(
             child: Column(
@@ -354,10 +366,7 @@ class CardHeader extends StatelessWidget {
             ),
           ),
 
-          if (trailing != null) ...[
-            SizedBox(width: spacing.sm),
-            trailing!,
-          ],
+          if (trailing != null) ...[SizedBox(width: spacing.sm), trailing!],
         ],
       ),
     );
@@ -385,6 +394,324 @@ class CardFooter extends StatelessWidget {
           .expand((action) => [action, SizedBox(width: spacing.xs)])
           .take(actions.length * 2 - 1)
           .toList(),
+    );
+  }
+}
+
+/// Card Media component for displaying images, videos, or other media
+class CardMedia extends StatelessWidget {
+  /// Image provider for the media content
+  final ImageProvider? image;
+
+  /// Asset path for image assets
+  final String? assetPath;
+
+  /// Network URL for network images
+  final String? networkUrl;
+
+  /// File path for file images
+  final String? filePath;
+
+  /// Height of the media section
+  final double height;
+
+  /// Width of the media section (defaults to full width)
+  final double? width;
+
+  /// Fit mode for the image
+  final BoxFit fit;
+
+  /// Background color when image is loading or failed
+  final Color? backgroundColor;
+
+  /// Widget to show while loading
+  final Widget? placeholder;
+
+  /// Widget to show when image fails to load
+  final Widget? errorWidget;
+
+  /// Border radius for the media
+  final BorderRadius? borderRadius;
+
+  /// Child widget to overlay on the media
+  final Widget? child;
+
+  /// Alignment for the child overlay
+  final AlignmentGeometry childAlignment;
+
+  const CardMedia({
+    super.key,
+    this.image,
+    this.assetPath,
+    this.networkUrl,
+    this.filePath,
+    this.height = 140.0,
+    this.width,
+    this.fit = BoxFit.cover,
+    this.backgroundColor,
+    this.placeholder,
+    this.errorWidget,
+    this.borderRadius,
+    this.child,
+    this.childAlignment = Alignment.bottomLeft,
+  });
+
+  /// Creates CardMedia with network image
+  factory CardMedia.network({
+    Key? key,
+    required String url,
+    double height = 140.0,
+    double? width,
+    BoxFit fit = BoxFit.cover,
+    Color? backgroundColor,
+    Widget? placeholder,
+    Widget? errorWidget,
+    BorderRadius? borderRadius,
+    Widget? child,
+    AlignmentGeometry childAlignment = Alignment.bottomLeft,
+  }) => CardMedia(
+    key: key,
+    networkUrl: url,
+    height: height,
+    width: width,
+    fit: fit,
+    backgroundColor: backgroundColor,
+    placeholder: placeholder,
+    errorWidget: errorWidget,
+    borderRadius: borderRadius,
+    child: child,
+    childAlignment: childAlignment,
+  );
+
+  /// Creates CardMedia with asset image
+  factory CardMedia.asset({
+    Key? key,
+    required String assetPath,
+    double height = 140.0,
+    double? width,
+    BoxFit fit = BoxFit.cover,
+    Color? backgroundColor,
+    Widget? placeholder,
+    Widget? errorWidget,
+    BorderRadius? borderRadius,
+    Widget? child,
+    AlignmentGeometry childAlignment = Alignment.bottomLeft,
+  }) => CardMedia(
+    key: key,
+    assetPath: assetPath,
+    height: height,
+    width: width,
+    fit: fit,
+    backgroundColor: backgroundColor,
+    placeholder: placeholder,
+    errorWidget: errorWidget,
+    borderRadius: borderRadius,
+    child: child,
+    childAlignment: childAlignment,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    // Determine which image provider to use
+    ImageProvider? effectiveImageProvider;
+    Widget? effectiveErrorWidget;
+
+    if (image != null) {
+      effectiveImageProvider = image;
+    } else if (networkUrl != null) {
+      effectiveImageProvider = NetworkImage(networkUrl!);
+      effectiveErrorWidget =
+          errorWidget ??
+          Container(
+            color: backgroundColor ?? theme.colorScheme.surfaceContainerHighest,
+            child: Icon(
+              Icons.broken_image_outlined,
+              color: theme.colorScheme.onSurfaceVariant,
+              size: 48,
+            ),
+          );
+    } else if (assetPath != null) {
+      effectiveImageProvider = AssetImage(assetPath!);
+      effectiveErrorWidget =
+          errorWidget ??
+          Container(
+            color: backgroundColor ?? theme.colorScheme.surfaceContainerHighest,
+            child: Icon(
+              Icons.image_not_supported_outlined,
+              color: theme.colorScheme.onSurfaceVariant,
+              size: 48,
+            ),
+          );
+    } else if (filePath != null) {
+      // Note: File images would need dart:io import, keeping as placeholder
+      effectiveErrorWidget =
+          errorWidget ??
+          Container(
+            color: backgroundColor ?? theme.colorScheme.surfaceContainerHighest,
+            child: Icon(
+              Icons.image_outlined,
+              color: theme.colorScheme.onSurfaceVariant,
+              size: 48,
+            ),
+          );
+    }
+
+    Widget mediaContent;
+
+    if (effectiveImageProvider != null) {
+      mediaContent = Image(
+        image: effectiveImageProvider,
+        height: height,
+        width: width,
+        fit: fit,
+        frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+          if (wasSynchronouslyLoaded || frame != null) {
+            return child;
+          }
+          return placeholder ??
+              Container(
+                height: height,
+                width: width,
+                color:
+                    backgroundColor ??
+                    theme.colorScheme.surfaceContainerHighest,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+              );
+        },
+        errorBuilder: (context, error, stackTrace) {
+          return effectiveErrorWidget ??
+              Container(
+                height: height,
+                width: width,
+                color:
+                    backgroundColor ??
+                    theme.colorScheme.surfaceContainerHighest,
+                child: Icon(
+                  Icons.broken_image_outlined,
+                  color: theme.colorScheme.onSurfaceVariant,
+                  size: 48,
+                ),
+              );
+        },
+      );
+    } else {
+      // Fallback when no image provider is available
+      mediaContent = Container(
+        height: height,
+        width: width,
+        color: backgroundColor ?? theme.colorScheme.surfaceVariant,
+        child: Icon(
+          Icons.image_outlined,
+          color: theme.colorScheme.onSurfaceVariant,
+          size: 48,
+        ),
+      );
+    }
+
+    // Wrap in container with border radius if specified
+    if (borderRadius != null) {
+      mediaContent = ClipRRect(
+        borderRadius: borderRadius!,
+        child: mediaContent,
+      );
+    }
+
+    // Add child overlay if specified
+    if (child != null) {
+      mediaContent = Stack(
+        alignment: childAlignment,
+        children: [mediaContent, child!],
+      );
+    }
+
+    return mediaContent;
+  }
+}
+
+/// Improved Card Actions component
+class CardActions extends StatelessWidget {
+  /// List of action widgets (typically buttons)
+  final List<Widget> actions;
+
+  /// Alignment of actions within the container
+  final MainAxisAlignment alignment;
+
+  /// Whether to remove default spacing between actions
+  final bool disableSpacing;
+
+  /// Custom spacing between actions (ignored if disableSpacing is true)
+  final double? spacing;
+
+  /// Internal padding for the actions container
+  final EdgeInsetsGeometry? padding;
+
+  const CardActions({
+    super.key,
+    required this.actions,
+    this.alignment = MainAxisAlignment.end,
+    this.disableSpacing = false,
+    this.spacing,
+    this.padding,
+  });
+
+  /// Creates CardActions aligned to the start
+  factory CardActions.start({
+    Key? key,
+    required List<Widget> actions,
+    bool disableSpacing = false,
+    double? spacing,
+    EdgeInsetsGeometry? padding,
+  }) => CardActions(
+    key: key,
+    actions: actions,
+    alignment: MainAxisAlignment.start,
+    disableSpacing: disableSpacing,
+    spacing: spacing,
+    padding: padding,
+  );
+
+  /// Creates CardActions with space between actions
+  factory CardActions.spaceBetween({
+    Key? key,
+    required List<Widget> actions,
+    bool disableSpacing = false,
+    double? spacing,
+    EdgeInsetsGeometry? padding,
+  }) => CardActions(
+    key: key,
+    actions: actions,
+    alignment: MainAxisAlignment.spaceBetween,
+    disableSpacing: disableSpacing,
+    spacing: spacing,
+    padding: padding,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens_spacing = tokens.Spacing.of(context);
+    final effectiveSpacing = spacing ?? tokens_spacing.sm;
+    final effectivePadding = padding ?? EdgeInsets.all(tokens_spacing.sm);
+
+    List<Widget> spacedActions;
+    if (disableSpacing) {
+      spacedActions = actions;
+    } else {
+      spacedActions = actions
+          .expand((action) => [action, SizedBox(width: effectiveSpacing)])
+          .take(actions.length * 2 - 1)
+          .toList();
+    }
+
+    return Padding(
+      padding: effectivePadding,
+      child: Row(mainAxisAlignment: alignment, children: spacedActions),
     );
   }
 }

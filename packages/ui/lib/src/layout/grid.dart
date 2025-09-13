@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 /// Defines breakpoints for responsive grid layouts
@@ -50,12 +51,14 @@ class GridBreakpoints {
 /// A responsive grid layout component with automatic sizing,
 /// breakpoint adaptation, and gap management.
 ///
-/// The [Grid] can work in two modes:
+/// The [Grid] can work in multiple modes:
 /// 1. Fixed column mode - when [columns] is provided
 /// 2. Responsive mode - when [minItemWidth] is provided
+/// 3. Natural sizing mode - when [naturalHeight] is true
 ///
 /// In responsive mode, the grid will automatically calculate the
 /// number of columns based on the available width and [minItemWidth].
+/// In natural sizing mode, items will size to their content height.
 class Grid extends StatelessWidget {
   /// Creates a responsive grid layout.
   ///
@@ -66,6 +69,8 @@ class Grid extends StatelessWidget {
   ///
   /// The [spacing] parameter sets both [crossAxisSpacing] and [mainAxisSpacing]
   /// if they are not explicitly provided.
+  ///
+  /// Set [naturalHeight] to true for behavior where items size to content.
   const Grid({
     super.key,
     required this.children,
@@ -79,6 +84,8 @@ class Grid extends StatelessWidget {
     this.minItemWidth,
     this.maxItemWidth,
     this.alignment = WrapAlignment.start,
+    this.naturalHeight = false,
+    this.itemHeight,
   });
 
   /// The widgets to display in the grid.
@@ -103,6 +110,7 @@ class Grid extends StatelessWidget {
   final double? mainAxisSpacing;
 
   /// The ratio of the width to height of each grid item.
+  /// Ignored when [naturalHeight] is true.
   final double childAspectRatio;
 
   /// Whether the grid should adapt to different screen sizes.
@@ -122,6 +130,14 @@ class Grid extends StatelessWidget {
   /// Alignment of the grid items within the grid.
   final WrapAlignment alignment;
 
+  /// Whether items should size naturally to their content height.
+  /// When true, [childAspectRatio] is ignored and [itemHeight] may be used.
+  final bool naturalHeight;
+
+  /// Fixed height for grid items when [naturalHeight] is true.
+  /// If null, items will size to their intrinsic height.
+  final double? itemHeight;
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -133,26 +149,117 @@ class Grid extends StatelessWidget {
         // Calculate number of columns
         final effectiveColumns = _calculateColumns(constraints.maxWidth);
 
-        // Build grid items
-        return GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: effectiveColumns,
-            crossAxisSpacing: effectiveCrossAxisSpacing,
-            mainAxisSpacing: effectiveMainAxisSpacing,
-            childAspectRatio: childAspectRatio,
-          ),
-          itemCount: children.length,
-          itemBuilder: (context, index) {
-            return Semantics(
-              container: true,
-              selected: false, // Default state, can be updated with focus
-              child: children[index],
-            );
-          },
+        // Use different layout strategies based on naturalHeight
+        if (naturalHeight) {
+          return _buildNaturalHeightGrid(
+            effectiveColumns,
+            effectiveCrossAxisSpacing,
+            effectiveMainAxisSpacing,
+            constraints.maxWidth,
+          );
+        } else {
+          return _buildFixedAspectRatioGrid(
+            effectiveColumns,
+            effectiveCrossAxisSpacing,
+            effectiveMainAxisSpacing,
+          );
+        }
+      },
+    );
+  }
+
+  /// Builds a grid with fixed aspect ratio (traditional GridView)
+  Widget _buildFixedAspectRatioGrid(
+    int effectiveColumns,
+    double effectiveCrossAxisSpacing,
+    double effectiveMainAxisSpacing,
+  ) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: effectiveColumns,
+        crossAxisSpacing: effectiveCrossAxisSpacing,
+        mainAxisSpacing: effectiveMainAxisSpacing,
+        childAspectRatio: childAspectRatio,
+      ),
+      itemCount: children.length,
+      itemBuilder: (context, index) {
+        return Semantics(
+          container: true,
+          selected: false,
+          child: children[index],
         );
       },
+    );
+  }
+
+  /// Builds a grid with natural height sizing
+  Widget _buildNaturalHeightGrid(
+    int effectiveColumns,
+    double effectiveCrossAxisSpacing,
+    double effectiveMainAxisSpacing,
+    double maxWidth,
+  ) {
+    // Calculate available width for items (remove unused itemWidth variable)
+
+    // Group children into rows
+    final rows = <List<Widget>>[];
+    for (int i = 0; i < children.length; i += effectiveColumns) {
+      final rowChildren = children.sublist(
+        i,
+        math.min(i + effectiveColumns, children.length),
+      );
+      rows.add(rowChildren);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: rows.map((rowChildren) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: rows.last == rowChildren ? 0 : effectiveMainAxisSpacing,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...rowChildren.asMap().entries.map((entry) {
+                final index = entry.key;
+                final child = entry.value;
+                return Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: itemHeight != null
+                            ? SizedBox(
+                                height: itemHeight,
+                                child: Semantics(
+                                  container: true,
+                                  selected: false,
+                                  child: child,
+                                ),
+                              )
+                            : Semantics(
+                                container: true,
+                                selected: false,
+                                child: child,
+                              ),
+                      ),
+                      if (index < rowChildren.length - 1)
+                        SizedBox(width: effectiveCrossAxisSpacing),
+                    ],
+                  ),
+                );
+              }).toList(),
+              // Fill remaining space if row is not complete
+              ...List.generate(
+                effectiveColumns - rowChildren.length,
+                (index) => const Expanded(child: SizedBox()),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 

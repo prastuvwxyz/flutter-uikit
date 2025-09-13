@@ -13,7 +13,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
   late TabController _tabController;
   String _selectedStatus = 'All';
   String _searchQuery = '';
-  List<String> _selectedItems = [];
+  final List<String> _selectedItems = [];
 
   final List<Map<String, dynamic>> _allMotorcycles = [
     {
@@ -316,7 +316,8 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
-                                      color: tokens.colorTokens.neutral.shade600,
+                                      color:
+                                          tokens.colorTokens.neutral.shade600,
                                     ),
                                   ),
                                 ),

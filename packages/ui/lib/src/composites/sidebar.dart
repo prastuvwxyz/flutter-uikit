@@ -114,18 +114,18 @@ class _SidebarState extends State<Sidebar> {
     return Container(
       width: widget.width,
       decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
+        color: Colors.white,
         border: Border(
           right: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.12),
+            color: Colors.grey.shade200,
             width: 1,
           ),
         ),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withValues(alpha: 0.02),
+            color: Colors.black.withValues(alpha: 0.05),
             offset: const Offset(1, 0),
-            blurRadius: 3,
+            blurRadius: 4,
           ),
         ],
       ),
@@ -136,7 +136,7 @@ class _SidebarState extends State<Sidebar> {
 
           Divider(
             height: 1,
-            color: theme.colorScheme.outline.withValues(alpha: 0.12),
+            color: Colors.grey.shade200,
           ),
 
           // Navigation Sections
@@ -156,7 +156,16 @@ class _SidebarState extends State<Sidebar> {
           ),
 
           // Footer Section
-          _buildFooterContent(context),
+          if (widget.footerContent != null)
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: widget.footerContent!,
+            )
+          else
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: _buildFooterContent(context),
+            ),
         ],
       ),
     );
@@ -411,51 +420,51 @@ class _SidebarState extends State<Sidebar> {
   }
 }
 
-Widget _buildFooterContent(BuildContext context) {
-  final theme = Theme.of(context);
+  Widget _buildFooterContent(BuildContext context) {
+    final theme = Theme.of(context);
 
-  return Row(
-    children: [
-      Container(
-        width: 36,
-        height: 36,
-        decoration: BoxDecoration(
-          color: theme.colorScheme.primaryContainer,
-          borderRadius: BorderRadius.circular(8),
+    return Row(
+      children: [
+        Container(
+          width: 36,
+          height: 36,
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primaryContainer,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(
+            Icons.help_outline_rounded,
+            color: theme.colorScheme.onPrimaryContainer,
+            size: 18,
+          ),
         ),
-        child: Icon(
-          Icons.help_outline_rounded,
-          color: theme.colorScheme.onPrimaryContainer,
-          size: 18,
-        ),
-      ),
-      const SizedBox(width: 12),
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Need help?',
-              style: theme.textTheme.labelMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: theme.colorScheme.onSurface,
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Need help?',
+                style: theme.textTheme.labelMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: theme.colorScheme.onSurface,
+                ),
               ),
-            ),
-            Text(
-              'Documentation',
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
+              Text(
+                'Documentation',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      Icon(
-        Icons.arrow_forward_ios_rounded,
-        size: 12,
-        color: theme.colorScheme.onSurfaceVariant,
-      ),
-    ],
-  );
-}
+        Icon(
+          Icons.arrow_forward_ios_rounded,
+          size: 12,
+          color: theme.colorScheme.onSurfaceVariant,
+        ),
+      ],
+    );
+  }

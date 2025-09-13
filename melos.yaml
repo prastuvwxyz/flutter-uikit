@@ -1,6 +1,6 @@
 name: rental_monorepo
 packages:
-  - apps/rental_fleet_portal
+  - apps/operation_fleet
   - packages/design_system
   - packages/core
   - packages/utils

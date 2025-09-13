@@ -82,18 +82,18 @@ class Header extends StatelessWidget {
       height: 64,
       padding: EdgeInsets.symmetric(horizontal: spacing.lg),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
+        color: Colors.white,
         border: Border(
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.12),
+            color: Colors.grey.shade200,
             width: 1,
           ),
         ),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withValues(alpha: 0.02),
+            color: Colors.black.withValues(alpha: 0.05),
             offset: const Offset(0, 1),
-            blurRadius: 3,
+            blurRadius: 4,
           ),
         ],
       ),
@@ -160,29 +160,7 @@ class Header extends StatelessWidget {
     BuildContext context,
     tokens.Spacing spacing,
   ) {
-    final theme = Theme.of(context);
-
     return [
-      IconButton(
-        onPressed: () {
-          // TODO: Implement notifications
-        },
-        icon: Icon(
-          Icons.notifications_outlined,
-          color: theme.colorScheme.onSurfaceVariant,
-        ),
-        tooltip: 'Notifications',
-      ),
-      SizedBox(width: spacing.xs),
-      IconButton(
-        onPressed: () {
-          // TODO: Implement search
-        },
-        icon: Icon(Icons.search, color: theme.colorScheme.onSurfaceVariant),
-        tooltip: 'Search',
-      ),
-      SizedBox(width: spacing.md),
-
       // User Profile
       _buildUserProfile(context, spacing),
     ];

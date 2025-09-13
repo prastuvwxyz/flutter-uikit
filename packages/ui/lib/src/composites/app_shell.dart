@@ -81,12 +81,22 @@ class AppShell extends StatelessWidget {
                     currentRoute: currentRoute,
                     isDesktop: isDesktop,
                     headerActions: headerActions,
-                    userProfile: userProfile ??
+                    userProfile:
+                        userProfile ??
                         const UserProfile(displayName: 'Admin User'),
                   ),
 
                 // Content Area
-                Expanded(child: child),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: MediaQuery.of(context).size.height - 64, // Account for header height
+                      ),
+                      child: child,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -95,4 +105,3 @@ class AppShell extends StatelessWidget {
     );
   }
 }
-

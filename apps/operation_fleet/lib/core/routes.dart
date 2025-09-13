@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../views/layouts/app.dart';
-import '../views/dashboard/dashboard_page.dart';
-import '../views/motorcycles/motorcycle_stocks_page.dart';
+import '../features/layouts/app_layout.dart';
+import '../features/dashboard/dashboard_page.dart';
+import '../features/assets/motorcycle_stock_page.dart';
 
 class AppRoutes {
   static final GoRouter router = GoRouter(
@@ -10,10 +10,7 @@ class AppRoutes {
     routes: [
       ShellRoute(
         builder: (context, state, child) {
-          return AppLayout(
-            currentRoute: state.uri.path,
-            child: child,
-          );
+          return AppLayout(currentRoute: state.uri.path, child: child);
         },
         routes: [
           GoRoute(
@@ -57,9 +54,7 @@ class AppRoutes {
             name: 'rentals',
             pageBuilder: (context, state) => NoTransitionPage<void>(
               key: state.pageKey,
-              child: const Center(
-                child: Text('Rentals - Coming Soon'),
-              ),
+              child: const Center(child: Text('Rentals - Coming Soon')),
             ),
           ),
           GoRoute(
@@ -67,9 +62,7 @@ class AppRoutes {
             name: 'maintenance',
             pageBuilder: (context, state) => NoTransitionPage<void>(
               key: state.pageKey,
-              child: const Center(
-                child: Text('Maintenance - Coming Soon'),
-              ),
+              child: const Center(child: Text('Maintenance - Coming Soon')),
             ),
           ),
           GoRoute(
@@ -77,9 +70,7 @@ class AppRoutes {
             name: 'customers',
             pageBuilder: (context, state) => NoTransitionPage<void>(
               key: state.pageKey,
-              child: const Center(
-                child: Text('Customers - Coming Soon'),
-              ),
+              child: const Center(child: Text('Customers - Coming Soon')),
             ),
           ),
           GoRoute(
@@ -87,9 +78,7 @@ class AppRoutes {
             name: 'payments',
             pageBuilder: (context, state) => NoTransitionPage<void>(
               key: state.pageKey,
-              child: const Center(
-                child: Text('Payments - Coming Soon'),
-              ),
+              child: const Center(child: Text('Payments - Coming Soon')),
             ),
           ),
           GoRoute(
@@ -97,9 +86,7 @@ class AppRoutes {
             name: 'reports',
             pageBuilder: (context, state) => NoTransitionPage<void>(
               key: state.pageKey,
-              child: const Center(
-                child: Text('Reports - Coming Soon'),
-              ),
+              child: const Center(child: Text('Reports - Coming Soon')),
             ),
           ),
           GoRoute(
@@ -107,9 +94,7 @@ class AppRoutes {
             name: 'settings',
             pageBuilder: (context, state) => NoTransitionPage<void>(
               key: state.pageKey,
-              child: const Center(
-                child: Text('Settings - Coming Soon'),
-              ),
+              child: const Center(child: Text('Settings - Coming Soon')),
             ),
           ),
         ],
@@ -133,5 +118,4 @@ class AppRoutes {
       ),
     ),
   );
-
 }
