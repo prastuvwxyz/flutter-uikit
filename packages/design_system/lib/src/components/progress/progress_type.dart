@@ -1,1 +1,0 @@
-enum ProgressType { linear, circular }

@@ -7,7 +7,6 @@ environment:
 
 workspace:
   - apps/operation_fleet
-  - packages/design_system
   - packages/tokens
   - packages/ui
   - packages/core

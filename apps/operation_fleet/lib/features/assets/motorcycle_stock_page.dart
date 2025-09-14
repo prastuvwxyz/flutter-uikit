@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:design_system/design_system.dart';
+import 'package:ui/ui.dart' as ui;
+import 'package:tokens/tokens.dart' as tokens;
 
 class MotorcycleStocksPage extends StatefulWidget {
   const MotorcycleStocksPage({super.key});
@@ -13,7 +14,6 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
   late TabController _tabController;
   String _selectedStatus = 'All';
   String _searchQuery = '';
-  final List<String> _selectedItems = [];
 
   final List<Map<String, dynamic>> _allMotorcycles = [
     {
@@ -159,84 +159,56 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
 
   @override
   Widget build(BuildContext context) {
-    final tokens = UiTokens.of(context);
     final statusCounts = _statusCounts;
 
-    return DashboardContent(
-      maxWidth: 'xl',
+    return ui.Container(
+      padding: const EdgeInsets.all(24),
+      constraints: const BoxConstraints(maxWidth: 1536),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Page Header
-            Container(
-              padding: const EdgeInsets.all(24),
-              child: Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'List',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w700,
-                          color: tokens.colorTokens.neutral.shade900,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          Text(
-                            'Motorcycle',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: tokens.colorTokens.neutral.shade500,
-                            ),
-                          ),
-                          Text(
-                            ' • ',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: tokens.colorTokens.neutral.shade500,
-                            ),
-                          ),
-                          Text(
-                            'List',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: tokens.colorTokens.neutral.shade600,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.add_rounded, size: 20),
-                    label: const Text('Add motorcycle'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: tokens.colorTokens.neutral.shade900,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                ],
+            // Header
+            Text(
+              'Motorcycle Stocks',
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Text(
+                  'Assets • Motorcycle Stocks',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                const Spacer(),
+                ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(Icons.add_rounded, size: 20),
+                  label: const Text('Add motorcycle'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: tokens.ColorPalettes.neutral.shade900,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ],
+            ),
 
-            // Main Card
+            const SizedBox(height: 32),
+
+            // Main Content
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
@@ -257,8 +229,8 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                       controller: _tabController,
                       isScrollable: true,
                       tabAlignment: TabAlignment.start,
-                      labelColor: tokens.colorTokens.neutral.shade900,
-                      unselectedLabelColor: tokens.colorTokens.neutral.shade500,
+                      labelColor: tokens.ColorPalettes.neutral.shade900,
+                      unselectedLabelColor: tokens.ColorPalettes.neutral.shade500,
                       labelStyle: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -269,7 +241,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                       ),
                       indicator: UnderlineTabIndicator(
                         borderSide: BorderSide(
-                          color: tokens.colorTokens.neutral.shade900,
+                          color: tokens.ColorPalettes.neutral.shade900,
                           width: 2,
                         ),
                         insets: const EdgeInsets.symmetric(horizontal: 12),
@@ -308,7 +280,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                                     vertical: 2,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: tokens.colorTokens.neutral.shade200,
+                                    color: tokens.ColorPalettes.neutral.shade200,
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Text(
@@ -316,8 +288,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
-                                      color:
-                                          tokens.colorTokens.neutral.shade600,
+                                      color: tokens.ColorPalettes.neutral.shade600,
                                     ),
                                   ),
                                 ),
@@ -541,7 +512,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: tokens.colorTokens.neutral.shade300,
+                              color: tokens.ColorPalettes.neutral.shade300,
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -556,10 +527,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                                         model,
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: tokens
-                                              .colorTokens
-                                              .neutral
-                                              .shade600,
+                                          color: tokens.ColorPalettes.neutral.shade600,
                                         ),
                                       ),
                                     ),
@@ -579,7 +547,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                             height: 40,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: tokens.colorTokens.neutral.shade300,
+                                color: tokens.ColorPalettes.neutral.shade300,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -592,12 +560,12 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                               decoration: InputDecoration(
                                 hintText: 'Search...',
                                 hintStyle: TextStyle(
-                                  color: tokens.colorTokens.neutral.shade500,
+                                  color: tokens.ColorPalettes.neutral.shade500,
                                   fontSize: 14,
                                 ),
                                 prefixIcon: Icon(
                                   Icons.search,
-                                  color: tokens.colorTokens.neutral.shade500,
+                                  color: tokens.ColorPalettes.neutral.shade500,
                                   size: 20,
                                 ),
                                 border: InputBorder.none,
@@ -608,33 +576,12 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                             ),
                           ),
                         ),
-                        const SizedBox(width: 16),
-
-                        // More Options Button
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: tokens.colorTokens.neutral.shade300,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.more_vert,
-                              color: tokens.colorTokens.neutral.shade600,
-                              size: 20,
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
 
                   // Data Table
-                  _buildDataTable(tokens),
+                  _buildDataTable(),
 
                   // Pagination
                   Container(
@@ -645,7 +592,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                           'Rows per page:',
                           style: TextStyle(
                             fontSize: 14,
-                            color: tokens.colorTokens.neutral.shade600,
+                            color: tokens.ColorPalettes.neutral.shade600,
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -653,7 +600,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: tokens.colorTokens.neutral.shade300,
+                              color: tokens.ColorPalettes.neutral.shade300,
                             ),
                             borderRadius: BorderRadius.circular(4),
                           ),
@@ -677,7 +624,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                           '1-5 of ${_filteredMotorcycles.length}',
                           style: TextStyle(
                             fontSize: 14,
-                            color: tokens.colorTokens.neutral.shade600,
+                            color: tokens.ColorPalettes.neutral.shade600,
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -685,14 +632,14 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                           onPressed: null,
                           icon: Icon(
                             Icons.chevron_left,
-                            color: tokens.colorTokens.neutral.shade400,
+                            color: tokens.ColorPalettes.neutral.shade400,
                           ),
                         ),
                         IconButton(
                           onPressed: () {},
                           icon: Icon(
                             Icons.chevron_right,
-                            color: tokens.colorTokens.neutral.shade600,
+                            color: tokens.ColorPalettes.neutral.shade600,
                           ),
                         ),
                       ],
@@ -707,7 +654,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
     );
   }
 
-  Widget _buildDataTable(UiTokens tokens) {
+  Widget _buildDataTable() {
     final motorcycles = _filteredMotorcycles;
 
     return Column(
@@ -716,10 +663,10 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           decoration: BoxDecoration(
-            color: tokens.colorTokens.neutral.shade50,
+            color: tokens.ColorPalettes.neutral.shade50,
             border: Border(
-              top: BorderSide(color: tokens.colorTokens.neutral.shade200),
-              bottom: BorderSide(color: tokens.colorTokens.neutral.shade200),
+              top: BorderSide(color: tokens.ColorPalettes.neutral.shade200),
+              bottom: BorderSide(color: tokens.ColorPalettes.neutral.shade200),
             ),
           ),
           child: Row(
@@ -739,7 +686,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: tokens.colorTokens.neutral.shade600,
+                        color: tokens.ColorPalettes.neutral.shade600,
                         letterSpacing: 0.5,
                       ),
                     ),
@@ -747,7 +694,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                     Icon(
                       Icons.arrow_upward,
                       size: 16,
-                      color: tokens.colorTokens.neutral.shade400,
+                      color: tokens.ColorPalettes.neutral.shade400,
                     ),
                   ],
                 ),
@@ -760,7 +707,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: tokens.colorTokens.neutral.shade600,
+                    color: tokens.ColorPalettes.neutral.shade600,
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -773,7 +720,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: tokens.colorTokens.neutral.shade600,
+                    color: tokens.ColorPalettes.neutral.shade600,
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -786,7 +733,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: tokens.colorTokens.neutral.shade600,
+                    color: tokens.ColorPalettes.neutral.shade600,
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -799,26 +746,25 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: tokens.colorTokens.neutral.shade600,
+                    color: tokens.ColorPalettes.neutral.shade600,
                     letterSpacing: 0.5,
                   ),
                 ),
               ),
               // Actions
-              const SizedBox(width: 40),
+              const SizedBox(width: 180),
             ],
           ),
         ),
 
         // Table Rows
-        ...motorcycles.map((motorcycle) => _buildTableRow(motorcycle, tokens)),
+        ...motorcycles.map((motorcycle) => _buildTableRow(motorcycle)),
       ],
     );
   }
 
-  Widget _buildTableRow(Map<String, dynamic> motorcycle, UiTokens tokens) {
+  Widget _buildTableRow(Map<String, dynamic> motorcycle) {
     final stockStatus = motorcycle['stockStatus'] as String;
-    final isSelected = _selectedItems.contains(motorcycle['vin']);
 
     Color statusColor;
     Color statusBgColor;
@@ -848,24 +794,8 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
         statusBgColor = Colors.orange.withValues(alpha: 0.1);
         break;
       default:
-        statusColor = tokens.colorTokens.neutral.shade500;
-        statusBgColor = tokens.colorTokens.neutral.shade100;
-    }
-
-    // Get avatar background color based on model
-    Color avatarColor;
-    switch (motorcycle['model']) {
-      case 'H1':
-        avatarColor = Colors.blue;
-        break;
-      case 'H3':
-        avatarColor = Colors.indigo;
-        break;
-      case 'H5':
-        avatarColor = Colors.purple;
-        break;
-      default:
-        avatarColor = tokens.colorTokens.primary.shade500;
+        statusColor = tokens.ColorPalettes.neutral.shade500;
+        statusBgColor = tokens.ColorPalettes.neutral.shade100;
     }
 
     return Container(
@@ -873,7 +803,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: tokens.colorTokens.neutral.shade100,
+            color: tokens.ColorPalettes.neutral.shade100,
             width: 1,
           ),
         ),
@@ -884,47 +814,20 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
           SizedBox(
             width: 48,
             child: Checkbox(
-              value: isSelected,
-              onChanged: (value) {
-                setState(() {
-                  if (value == true) {
-                    _selectedItems.add(motorcycle['vin']);
-                  } else {
-                    _selectedItems.remove(motorcycle['vin']);
-                  }
-                });
-              },
+              value: false,
+              onChanged: (value) {},
             ),
           ),
-          // License Plate with Avatar
+          // License Plate
           Expanded(
             flex: 2,
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 18,
-                  backgroundColor: avatarColor,
-                  child: Text(
-                    motorcycle['model'],
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    motorcycle['licensePlate'],
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: tokens.colorTokens.neutral.shade900,
-                    ),
-                  ),
-                ),
-              ],
+            child: Text(
+              motorcycle['licensePlate'],
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: tokens.ColorPalettes.neutral.shade900,
+              ),
             ),
           ),
           // VIN
@@ -934,7 +837,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
               motorcycle['vin'],
               style: TextStyle(
                 fontSize: 14,
-                color: tokens.colorTokens.neutral.shade700,
+                color: tokens.ColorPalettes.neutral.shade700,
               ),
             ),
           ),
@@ -949,7 +852,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: tokens.colorTokens.neutral.shade900,
+                    color: tokens.ColorPalettes.neutral.shade900,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -957,7 +860,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                   '${motorcycle['sku']} ${motorcycle['productionYear']}',
                   style: TextStyle(
                     fontSize: 12,
-                    color: tokens.colorTokens.neutral.shade600,
+                    color: tokens.ColorPalettes.neutral.shade600,
                   ),
                 ),
               ],
@@ -974,7 +877,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: tokens.colorTokens.neutral.shade900,
+                    color: tokens.ColorPalettes.neutral.shade900,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -982,7 +885,7 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
                   motorcycle['ownerName'],
                   style: TextStyle(
                     fontSize: 12,
-                    color: tokens.colorTokens.neutral.shade600,
+                    color: tokens.ColorPalettes.neutral.shade600,
                   ),
                 ),
               ],
@@ -1009,15 +912,40 @@ class _MotorcycleStocksPageState extends State<MotorcycleStocksPage>
           ),
           // Actions
           SizedBox(
-            width: 40,
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.more_vert,
-                size: 18,
-                color: tokens.colorTokens.neutral.shade600,
-              ),
-              tooltip: 'More Actions',
+            width: 180,
+            child: Row(
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Show',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: tokens.ColorPalettes.neutral.shade600,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Edit',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: tokens.ColorPalettes.neutral.shade600,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Delete',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.red.shade600,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

@@ -22,79 +22,11 @@ class AppRoutes {
             ),
           ),
           GoRoute(
-            path: '/motorcycles',
-            name: 'motorcycles',
-            pageBuilder: (context, state) => NoTransitionPage<void>(
-              key: state.pageKey,
-              child: const Center(
-                child: Text('Motorcycles Overview - Coming Soon'),
-              ),
-            ),
-          ),
-          GoRoute(
-            path: '/motorcycles/stocks',
-            name: 'motorcycle-stocks',
+            path: '/motorcycle/stocks',
+            name: 'asset-motorcycles',
             pageBuilder: (context, state) => NoTransitionPage<void>(
               key: state.pageKey,
               child: const MotorcycleStocksPage(),
-            ),
-          ),
-          GoRoute(
-            path: '/motorcycles/maintenance',
-            name: 'motorcycle-maintenance',
-            pageBuilder: (context, state) => NoTransitionPage<void>(
-              key: state.pageKey,
-              child: const Center(
-                child: Text('Maintenance Motorcycles - Coming Soon'),
-              ),
-            ),
-          ),
-          GoRoute(
-            path: '/rentals',
-            name: 'rentals',
-            pageBuilder: (context, state) => NoTransitionPage<void>(
-              key: state.pageKey,
-              child: const Center(child: Text('Rentals - Coming Soon')),
-            ),
-          ),
-          GoRoute(
-            path: '/maintenance',
-            name: 'maintenance',
-            pageBuilder: (context, state) => NoTransitionPage<void>(
-              key: state.pageKey,
-              child: const Center(child: Text('Maintenance - Coming Soon')),
-            ),
-          ),
-          GoRoute(
-            path: '/customers',
-            name: 'customers',
-            pageBuilder: (context, state) => NoTransitionPage<void>(
-              key: state.pageKey,
-              child: const Center(child: Text('Customers - Coming Soon')),
-            ),
-          ),
-          GoRoute(
-            path: '/payments',
-            name: 'payments',
-            pageBuilder: (context, state) => NoTransitionPage<void>(
-              key: state.pageKey,
-              child: const Center(child: Text('Payments - Coming Soon')),
-            ),
-          ),
-          GoRoute(
-            path: '/reports',
-            name: 'reports',
-            pageBuilder: (context, state) => NoTransitionPage<void>(
-              key: state.pageKey,
-              child: const Center(child: Text('Reports - Coming Soon')),
-            ),
-          ),
-          GoRoute(
-            path: '/settings',
-            name: 'settings',
-            pageBuilder: (context, state) => NoTransitionPage<void>(
-              key: state.pageKey,
-              child: const Center(child: Text('Settings - Coming Soon')),
             ),
           ),
         ],

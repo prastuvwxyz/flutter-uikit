@@ -91,7 +91,9 @@ class AppShell extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: ConstrainedBox(
                       constraints: BoxConstraints(
-                        minHeight: MediaQuery.of(context).size.height - 64, // Account for header height
+                        minHeight:
+                            MediaQuery.of(context).size.height -
+                            64, // Account for header height
                       ),
                       child: child,
                     ),

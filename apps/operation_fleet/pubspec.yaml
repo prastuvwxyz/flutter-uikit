@@ -32,8 +32,6 @@ dependencies:
     sdk: flutter
 
   # Design System & UI
-  design_system:
-    path: ../../packages/design_system
   tokens:
     path: ../../packages/tokens
   ui:

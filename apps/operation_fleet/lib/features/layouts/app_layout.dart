@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui/ui.dart' as ui;
 import 'package:go_router/go_router.dart';
-import 'package:tokens/tokens.dart' as tokens;
 
 class AppLayout extends StatelessWidget {
   final String currentRoute;
@@ -12,7 +11,6 @@ class AppLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ui.AppShell(
-      child: child,
       currentRoute: currentRoute,
       navigationConfig: ui.NavigationConfig(
         sections: _getNavigationSections(),
@@ -26,6 +24,7 @@ class AppLayout extends StatelessWidget {
         fallbackIcon: Icons.motorcycle_rounded,
       ),
       footerContent: _buildFooterContent(context),
+      child: child,
     );
   }
 
@@ -55,7 +54,7 @@ class AppLayout extends StatelessWidget {
                 icon: Icons.inventory_2_outlined,
                 selectedIcon: Icons.inventory_2_rounded,
                 label: 'Motorcycle Stocks',
-                route: '/assets/motorcycle/stocks',
+                route: '/motorcycle/stocks',
               ),
               ui.NavigationItem(
                 icon: Icons.add_box_outlined,
