@@ -36,5 +36,5 @@ scripts:
     run: melos run test --since main
 
   build:web:
-    run: melos exec --scope="rental_fleet_portal" -- \
+    run: melos exec --scope="operation_fleet" -- \
       flutter build web --release

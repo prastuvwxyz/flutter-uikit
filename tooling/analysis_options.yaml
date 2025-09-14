@@ -1,0 +1,27 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/generated_plugin_registrant.dart"
+    - build/**
+    - .dart_tool/**
+
+linter:
+  rules:
+    # Disable some rules that might be too strict for UI components
+    public_member_api_docs: false
+    lines_longer_than_80_chars: false
+
+    # Enable additional rules for better code quality
+    prefer_single_quotes: true
+    sort_constructors_first: true
+    sort_pub_dependencies: true
+    unawaited_futures: true
+    use_build_context_synchronously: true
+
+    # Flutter specific rules
+    sized_box_shrink_expand: true
+    use_colored_box: true
+    use_decorated_box: true
